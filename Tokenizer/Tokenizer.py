@@ -1,5 +1,6 @@
 import os
 from enum import Enum
+from sys import argv
 from Token import Token
 import string
 
@@ -197,6 +198,6 @@ def getKeepWord(name:str):
 def left_bracket():
     pass
 
-
 if __name__ == '__main__':
-    tokenize("../program1.snl")
+    import sys
+    tokenize(sys.argv[1])
