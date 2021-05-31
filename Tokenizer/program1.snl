@@ -6,6 +6,7 @@ char  c;
 procedure f();
 begin
     v1 :=2
+    c = 'opo'
 end
 
 begin

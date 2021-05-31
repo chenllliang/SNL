@@ -109,27 +109,29 @@ def tokenize(file_path):
             state = STATES.START
 
         elif state == STATES.INCHAR:
-            if i!=".":
-                tokenlist.append(Token(token_ids, "END", None))
-            elif i==".":
-                tokenlist.append(Token(token_ids, "RANGE", None))
+            if isNumber(i) or isChar(i):
+                token_value += i
 
-            token_ids += 1
-            token_value = ""
-            state = STATES.START
-
+            elif i=="\'":
+                token_value += i
+                tokenlist.append(Token(token_ids, "CHARS", token_value))
+                token_ids += 1
+                token_value = ""
+                state = STATES.START
 
 
         elif state == STATES.INNUM:
             if isNumber(i):
                 token_value += i
-            elif i == " " or i == "":
+                
+            else:
                 tokenlist.append(Token(token_ids, "NUMBER", token_value))
                 token_ids += 1
                 token_value = ""
                 state = STATES.START
-            else:
-                raise TypeError("unexpected symbol "+i+" in "+str(state))
+                f.seek(-1,1)
+
+
         if not i:
             break
 
