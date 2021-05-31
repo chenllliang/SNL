@@ -1,7 +1,7 @@
 import os
 from enum import Enum
 from sys import argv
-from Token import Token
+from .Token import Token
 import string
 
 

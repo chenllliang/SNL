@@ -1,0 +1,15 @@
+{
+    "Endians":[".","ID","TYPE"],
+    
+    "Program":["ProgramHead","DeclarePart","ProgramBody","."],
+    "ProgramHead":["PROGRAM","ProgramName"],
+    "ProgramName":["ID"],
+
+    "DeclarePart":["TypeDecpart","VarDecpart","ProcDecpart"],
+
+    "TypeDecpart":[["@"],["TypeDec"]],
+    "TypeDec":["TYPE", "TypeDecList"],
+    "TypeDecList" :[ "TypeId = TypeDef", "TypeDecMore"]
+
+
+}
