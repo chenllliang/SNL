@@ -1,7 +1,7 @@
 import os
 from enum import Enum
 from sys import argv
-from .Token import Token
+from Token import Token
 import string
 
 
@@ -21,7 +21,7 @@ digits = {str(i) for i in range(10)}
 uni_delimiters = {'+': 'PLUS', '-': 'MINUS', '*': 'MULTIPLY', '/': 'SLASH',
                   '<': 'ST', '>': 'LT', '=': 'EQUAL',
                   '(': 'LP', ')': 'RP', '[': 'LB', ']': 'RB',
-                  ';': 'SPLIT1',',':'SPLIT2'}
+                  ';': 'SPLIT1', ',': 'SPLIT2'}
 bi_delimeter = {":=": "ASSIGN"}
 list_range = {"..": "RANGE"}
 char = {"\'": "CHARS"}
@@ -29,7 +29,7 @@ end = {".": "END_PROGRAM"}
 error = {"ERROR": "error"}
 keep_words_value = {"program", "procedure", "type", "var", "if", "then", "else", "finally", "while", "do", "endwh",
                     "begin", "end", "read", "write", "array", "of", "record", "return"}
-keey_words = {i:i.upper() for i in keep_words_value}
+keey_words = {i: i.upper() for i in keep_words_value}
 
 
 def tokenize(file_path):
@@ -51,16 +51,15 @@ def tokenize(file_path):
                 state = STATES.INNUM
             if isUniDelimiter(i):
                 # UniDelimiter token added
-                tokenlist.append(Token(token_ids,uni_delimiters[i],None))
-                token_ids+=1
+                tokenlist.append(Token(token_ids, uni_delimiters[i], None))
+                token_ids += 1
                 continue
-            if i==":":
+            if i == ":":
                 state = STATES.INASSIGN
-            if i==".":
+            if i == ".":
                 state = STATES.INRANGE
-            if i=="\'":
+            if i == "\'":
                 state = STATES.INCHAR
-
 
             token_value += i
 
@@ -70,13 +69,12 @@ def tokenize(file_path):
 
             # 加回退
             else:
-                id_type,id_value = getKeepWord(token_value)
-                tokenlist.append(Token(token_ids,id_type,id_value))
-                token_ids+=1
-                token_value=""
+                id_type, id_value = getKeepWord(token_value)
+                tokenlist.append(Token(token_ids, id_type, id_value))
+                token_ids += 1
+                token_value = ""
                 state = STATES.START
-                f.seek(-1,1)
-
+                f.seek(-1, 1)
 
         elif state == STATES.INNUM:
             if isNumber(i):
@@ -86,12 +84,11 @@ def tokenize(file_path):
                 token_ids += 1
                 token_value = ""
                 state = STATES.START
-                f.seek(-1,1)
-
+                f.seek(-1, 1)
 
         elif state == STATES.INASSIGN:
-            if i!="=":
-                raise TypeError("unexpected symbol "+i+" in "+str(state))
+            if i != "=":
+                raise TypeError("unexpected symbol " + i + " in " + str(state))
             else:
                 tokenlist.append(Token(token_ids, "ASSIGN", None))
                 token_ids += 1
@@ -99,9 +96,9 @@ def tokenize(file_path):
                 state = STATES.START
 
         elif state == STATES.INRANGE:
-            if i!=".":
+            if i != ".":
                 tokenlist.append(Token(token_ids, "END_PROGRAM", None))
-            elif i==".":
+            elif i == ".":
                 tokenlist.append(Token(token_ids, "RANGE", None))
 
             token_ids += 1
@@ -112,35 +109,31 @@ def tokenize(file_path):
             if isNumber(i) or isChar(i):
                 token_value += i
 
-            elif i=="\'":
+            elif i == "\'":
                 token_value += i
                 tokenlist.append(Token(token_ids, "CHARS", token_value))
                 token_ids += 1
                 token_value = ""
                 state = STATES.START
 
-
         elif state == STATES.INNUM:
             if isNumber(i):
                 token_value += i
-                
+
             else:
                 tokenlist.append(Token(token_ids, "NUMBER", token_value))
                 token_ids += 1
                 token_value = ""
                 state = STATES.START
-                f.seek(-1,1)
-
+                f.seek(-1, 1)
 
         if not i:
             break
 
-    with open(file_path+".tok","w") as f:
+    with open(file_path + ".tok", "w") as f:
         for i in tokenlist:
             print(i)
-            f.write(str(i)+"\n")
-
-
+            f.write(str(i) + "\n")
 
 
 def cleanText(path):
@@ -191,15 +184,19 @@ def isNumber(char: str):
 def isUniDelimiter(char: str):
     return char in uni_delimiters.keys()
 
-def getKeepWord(name:str):
+
+def getKeepWord(name: str):
     if name in keep_words_value:
-        return keey_words[name],None
+        return keey_words[name], None
     else:
-        return "ID",name
+        return "ID", name
+
 
 def left_bracket():
     pass
 
+
 if __name__ == '__main__':
     import sys
+
     tokenize(sys.argv[1])

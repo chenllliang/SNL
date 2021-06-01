@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append("..")
 
 import json
@@ -6,58 +7,82 @@ from Tokenizer.Token import Token
 
 Token_List = []
 i = 0
-TreeNodes={"Program":[]}
+
+
+class TreeNode:
+    def __init__(self, token):
+        self.name = token
+        self.child = []
+
+
+    def dfs(self):
+        print(self.name)
+        for i in self.child:
+            i.dfs()
+
+
+
 
 def RecurParse(path):
-    global i,Token_List
-    f = open(path,"r")
+    global i, Token_List
+    f = open(path, "r")
     Token_List = [Token.unserilze(i.strip()) for i in f.readlines()]
-    print(len(Token_List))
-    Program()
+    root = TreeNode("ROOT")
+    Program(root)
+
+    root.dfs()
     print("Done")
-    
-    
-
-def Program():
-    ProgramHead()
-    DeclarePart()
-    ProgramBody()
-    match("END_PROGRAM")
 
 
-def ProgramHead():
-    match("PROGRAM")
-    ProgramName()
 
-def ProgramName():
-    match("ID")
-
-def  DeclarePart():
-    TypeDecpart()
-    VarDecpart()
-    ProcDecpart()
+def Program(node:TreeNode):
+    ProgramHead(node)
+    DeclarePart(node)
+    ProgramBody(node)
+    match("END_PROGRAM",node)
 
 
-def    TypeDecpart():
-    pass
-def    VarDecpart():
-    pass
-def    ProcDecpart():
-    pass
 
-def ProgramBody():
+def ProgramHead(node:TreeNode):
+    match("PROGRAM",node)
+    ProgramName(node)
+
+
+def ProgramName(node:TreeNode):
+    match("ID",node)
+
+
+def DeclarePart(node:TreeNode):
+    TypeDecpart(node)
+    VarDecpart(node)
+    ProcDecpart(node)
+
+
+def TypeDecpart(node:TreeNode):
     pass
 
-def match(strings:str):
-    global i,Token_List
+
+def VarDecpart(node:TreeNode):
+    pass
+
+
+def ProcDecpart(node:TreeNode):
+    pass
+
+
+def ProgramBody(node:TreeNode):
+    pass
+
+
+def match(strings: str,node:TreeNode):
+    global i, Token_List
 
     if Token_List[i].type == strings:
-        print(strings)
-        i+=1
+        node.child.append(TreeNode(strings))
+        i += 1
         return
     else:
         raise TypeError(strings)
-    
 
 
 if __name__ == "__main__":
