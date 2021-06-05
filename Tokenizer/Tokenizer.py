@@ -28,7 +28,7 @@ char = {"\'": "CHARS"}
 end = {".": "END_PROGRAM"}
 error = {"ERROR": "error"}
 keep_words_value = {"program", "procedure", "type", "var", "if", "then", "else", "finally", "while", "do", "endwh",
-                    "begin", "end", "read", "write", "array", "of", "record", "return","integer","char"}
+                    "begin", "end", "read", "write", "array", "of", "record", "return","integer","char","fi"}
 keey_words = {i: i.upper() for i in keep_words_value}
 
 

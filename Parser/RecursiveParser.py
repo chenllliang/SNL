@@ -328,6 +328,7 @@ def StmList():
     cur_node.append(StmMore())
     return cur_node
 
+
 def Stm():
     cur_node = TreeNode("Stm", "NT")
     global Token_List, i
@@ -344,6 +345,7 @@ def Stm():
         cur_node.append(AssCall())
     return cur_node
 
+
 def StmMore():
     cur_node = TreeNode("StmMore", "NT")
     global Token_List, i
@@ -352,40 +354,232 @@ def StmMore():
         cur_node.append(StmList())
     return cur_node
 
+
 def ConditionalStm():
     cur_node = TreeNode("ConditionalStm", "NT")
+    cur_node.append(match("IF"))
+    cur_node.append(RelExp())
+    cur_node.append(match("THEN"))
+    cur_node.append(StmList())
+    cur_node.append(match("ELSE"))
+    cur_node.append(StmList())
+    cur_node.append(match("FI"))
 
     return cur_node
+
 
 def LoopStm():
     cur_node = TreeNode("LoopStm", "NT")
+    cur_node.append(match("WHILE"))
+    cur_node.append(RelExp())
+    cur_node.append(match("DO"))
+    cur_node.append(StmList())
+    cur_node.append(match("ENDWH"))
 
     return cur_node
+
 
 def InputStm():
     cur_node = TreeNode("InputStm", "NT")
+    cur_node.append(match("READ"))
+    cur_node.append(match("LP"))
+    cur_node.append(Invar())
+    cur_node.append(match("RP"))
 
     return cur_node
+
+
+def Invar():
+    cur_node = TreeNode("Invar", "NT")
+    cur_node.append(match("ID"))
+    return cur_node
+
 
 def OutputStm():
     cur_node = TreeNode("OutputStm", "NT")
+    cur_node.append(match("WRITE"))
+    cur_node.append(match("LP"))
+    cur_node.append(Exp())
+    cur_node.append(match("RP"))
 
     return cur_node
+
 
 def ReturnStm():
     cur_node = TreeNode("ReturnStm", "NT")
+    cur_node.append(match("RETURN"))
 
     return cur_node
+
 
 def AssCall():
     cur_node = TreeNode("AssCall", "NT")
+    global Token_List, i
+    if Token_List[i].type == "LP":
+        cur_node.append(CallStmRest())
+    else:
+        cur_node.append(AssignmentRest())
 
     return cur_node
+
+
+def CallStmRest():
+    cur_node = TreeNode("CallStmRest", "NT")
+    cur_node.append(match("LP"))
+    cur_node.append(ActParamList())
+    cur_node.append(match("RP"))
+    return cur_node
+
+
+def ActParamList():
+    cur_node = TreeNode("ActParamList", "NT")
+
+    global Token_List, i
+    if Token_List[i].type in ["LP", "NUMBER", "ID"]:
+        cur_node.append(Exp())
+        cur_node.append(ActParamMore())
+
+    return cur_node
+
+
+def ActParamMore():
+    cur_node = TreeNode("ActParamMore", "NT")
+
+    global Token_List, i
+    if Token_List[i].type == "COMMA":
+        cur_node.append(match("COMMA"))
+        cur_node.append(ActParamList())
+    return cur_node
+
 
 def AssignmentRest():
     cur_node = TreeNode("AssignmentRest", "NT")
+    cur_node.append(VariMore())
+    cur_node.append(match("ASSIGN"))
+    cur_node.append(Exp())
 
     return cur_node
+
+
+def RelExp():
+    cur_node = TreeNode("RelExp", "NT")
+    cur_node.append(Exp())
+    cur_node.append(OtherRelE())
+    return cur_node
+
+
+def Variable():
+    cur_node = TreeNode("Variable", "NT")
+    cur_node.append(match("ID"))
+    cur_node.append(VariMore())
+    return cur_node
+
+
+def VariMore():
+    cur_node = TreeNode("VariMore", "NT")
+    global Token_List, i
+    if Token_List[i].type == "LB":
+        cur_node.append(match("LB"))
+        cur_node.append(Exp())
+        cur_node.append(match("RB"))
+
+    return cur_node
+
+
+def Exp():
+    cur_node = TreeNode("Exp", "NT")
+    cur_node.append(Term())
+    cur_node.append(OtherTerm())
+    return cur_node
+
+
+def Term():
+    cur_node = TreeNode("Term", "NT")
+    cur_node.append(Factor())
+    cur_node.append(OtherFactor())
+
+    return cur_node
+
+
+def OtherTerm():
+    cur_node = TreeNode("OtherTerm", "NT")
+    global Token_List, i
+    if Token_List[i].type in ["PLUS", "MINUS"]:
+        cur_node.append(AddOp())
+        cur_node.append(Exp())
+
+    return cur_node
+
+
+def AddOp():
+    cur_node = TreeNode("AddOp", "NT")
+
+    global Token_List, i
+    if Token_List[i].type == "PLUS":
+        cur_node.append(match("PLUS"))
+    else:
+        cur_node.append(match("MINUS"))
+
+    return cur_node
+
+
+def Factor():
+    cur_node = TreeNode("Factor", "NT")
+    global Token_List, i
+    if Token_List[i].type == "LP":
+        cur_node.append(match("LP"))
+        cur_node.append(Exp())
+        cur_node.append("RP")
+    if Token_List[i].type == "NUMBER":
+        cur_node.append(match("NUMBER"))
+    if Token_List[i].type == "ID":
+        cur_node.append(Variable())
+
+    return cur_node
+
+
+def OtherFactor():
+    cur_node = TreeNode("OtherFactor", "NT")
+
+    global Token_List, i
+    if Token_List[i].type in ["MULTIPLY", "SLASH"]:
+        cur_node.append(MultOp())
+        cur_node.append(Term())
+
+    return cur_node
+
+
+def MultOp():
+    cur_node = TreeNode("MultOp", "NT")
+
+    global Token_List, i
+    if Token_List[i].type == "MULTIPLY":
+        cur_node.append(match("MULTIPLY"))
+    else:
+        cur_node.append(match("SLASH"))
+
+    return cur_node
+
+
+def CmpOp():
+    cur_node = TreeNode("CmpOp", "NT")
+    global Token_List, i
+    if Token_List[i].type == "ST":
+        cur_node.append(match("ST"))
+    elif Token_List[i].type == "LT":
+        cur_node.append(match("LT"))
+    else:
+        cur_node.append(match("EQUAL"))
+
+    return cur_node
+
+
+def OtherRelE():
+    cur_node = TreeNode("OtherRelE", "NT")
+    cur_node.append(CmpOp())
+    cur_node.append(Exp())
+    return cur_node
+
 
 def match(strings: str):
     global i, Token_List
@@ -402,5 +596,6 @@ def match(strings: str):
 
 
 if __name__ == "__main__":
-    rules = json.load(open("rules.json"))
-    RecurParse("temp.tok")
+
+    import sys
+    RecurParse(sys.argv[1])
