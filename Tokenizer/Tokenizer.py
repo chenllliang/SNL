@@ -21,14 +21,14 @@ digits = {str(i) for i in range(10)}
 uni_delimiters = {'+': 'PLUS', '-': 'MINUS', '*': 'MULTIPLY', '/': 'SLASH',
                   '<': 'ST', '>': 'LT', '=': 'EQUAL',
                   '(': 'LP', ')': 'RP', '[': 'LB', ']': 'RB',
-                  ';': 'SPLIT1', ',': 'SPLIT2'}
+                  ';': 'SEMICOLON', ',': 'COMMA'}
 bi_delimeter = {":=": "ASSIGN"}
 list_range = {"..": "RANGE"}
 char = {"\'": "CHARS"}
 end = {".": "END_PROGRAM"}
 error = {"ERROR": "error"}
 keep_words_value = {"program", "procedure", "type", "var", "if", "then", "else", "finally", "while", "do", "endwh",
-                    "begin", "end", "read", "write", "array", "of", "record", "return"}
+                    "begin", "end", "read", "write", "array", "of", "record", "return","integer","char"}
 keey_words = {i: i.upper() for i in keep_words_value}
 
 
@@ -66,8 +66,6 @@ def tokenize(file_path):
         elif state == STATES.INID:
             if isChar(i) or isNumber(i):
                 token_value += i
-
-            # 加回退
             else:
                 id_type, id_value = getKeepWord(token_value)
                 tokenlist.append(Token(token_ids, id_type, id_value))
@@ -173,19 +171,18 @@ def cleanText(path):
     tmp.close()
 
 
-def isChar(char: str):
+def isChar(char:str):
     return char in letters
 
 
-def isNumber(char: str):
+def isNumber(char:str):
     return char in digits
 
 
-def isUniDelimiter(char: str):
+def isUniDelimiter(char:str):
     return char in uni_delimiters.keys()
 
-
-def getKeepWord(name: str):
+def getKeepWord(name:str):
     if name in keep_words_value:
         return keey_words[name], None
     else:
