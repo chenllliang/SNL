@@ -13,6 +13,7 @@ begin
 a:=i;
 write(a)
 end
+
 begin
 read(v1);
 if v1<10
@@ -20,4 +21,4 @@ then v1:=v1+10
 else v1:=v1-10
 fi;
 q(v1)
-end.
+end .

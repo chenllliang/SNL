@@ -26,4 +26,15 @@ id:24 type:ID value:v1
 id:25 type:COMMA value:None
 id:26 type:ID value:v2
 id:27 type:SEMICOLON value:None
-id:28 type:END_PROGRAM value:None
+id:28 type:PROCEDURE value:None
+id:29 type:ID value:q
+id:30 type:LP value:None
+id:31 type:INTEGER value:None
+id:32 type:ID value:i
+id:33 type:RP value:None
+id:34 type:SEMICOLON value:None
+id:35 type:VAR value:None
+id:36 type:INTEGER value:None
+id:37 type:ID value:a
+id:38 type:SEMICOLON value:None
+id:39 type:END_PROGRAM value:None

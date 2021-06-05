@@ -236,11 +236,13 @@ def ProcDec():
 
 def ProcBody():
     cur_node = TreeNode("ProcBody", "NT")
+    cur_node.append(ProgramBody())
     return cur_node
 
 
 def ProcDecPart():
     cur_node = TreeNode("ProcDecPart", "NT")
+    cur_node.append(DeclarePart())
     return cur_node
 
 
@@ -260,39 +262,130 @@ def ProcName():
 
 def ParamList():
     cur_node = TreeNode("ParamList", "NT")
+    global Token_List, i
+    if Token_List[i].type in ["INTEGER", "CHAR", "ARRAY", "ID", "VAR"]:
+        cur_node.append(ParamDecList())
     return cur_node
 
 
 def ParamDecList():
     cur_node = TreeNode("ParamDecList", "NT")
+    cur_node.append(Param())
+    cur_node.append(ParamMore())
     return cur_node
 
 
 def ParamMore():
     cur_node = TreeNode("ParamMore", "NT")
+    global Token_List, i
+    if Token_List[i].type == "SEMICOLON":
+        cur_node.append(match("SEMICOLON"))
+        cur_node.append(ParamDecList())
     return cur_node
 
 
 def Param():
     cur_node = TreeNode("Param", "NT")
+    global Token_List, i
+    if Token_List[i].type == "VAR":
+        cur_node.append(match("VAR"))
+        cur_node.append(TypeDef())
+        cur_node.append(FormList())
+    else:
+        cur_node.append(TypeDef())
+        cur_node.append(FormList())
+
     return cur_node
 
 
 def FormList():
     cur_node = TreeNode("FormList", "NT")
+    cur_node.append(match("ID"))
+    cur_node.append(FidMore())
     return cur_node
 
 
 def FidMore():
     cur_node = TreeNode("FidMore", "NT")
+    global Token_List, i
+    if Token_List[i].type == "COMMA":
+        cur_node.append(match("COMMA"))
+        cur_node.append(FormList())
     return cur_node
 
 
 def ProgramBody():
     cur_node = TreeNode("ProgramBody", "NT")
+    cur_node.append(match("BEGIN"))
+    cur_node.append(StmList())
+    cur_node.append(match("END"))
+    return cur_node
+
+
+def StmList():
+    cur_node = TreeNode("StmList", "NT")
+    cur_node.append(Stm())
+    cur_node.append(StmMore())
+    return cur_node
+
+def Stm():
+    cur_node = TreeNode("Stm", "NT")
+    global Token_List, i
+    if Token_List[i].type == "IF":
+        cur_node.append(ConditionalStm())
+    if Token_List[i].type == "WHILE":
+        cur_node.append(LoopStm())
+    if Token_List[i].type == "READ":
+        cur_node.append(InputStm())
+    if Token_List[i].type == "WRITE":
+        cur_node.append(OutputStm())
+    if Token_List[i].type == "ID":
+        cur_node.append(match("ID"))
+        cur_node.append(AssCall())
+    return cur_node
+
+def StmMore():
+    cur_node = TreeNode("StmMore", "NT")
+    global Token_List, i
+    if Token_List[i].type == "SEMICOLON":
+        cur_node.append(match("SEMICOLON"))
+        cur_node.append(StmList())
+    return cur_node
+
+def ConditionalStm():
+    cur_node = TreeNode("ConditionalStm", "NT")
 
     return cur_node
 
+def LoopStm():
+    cur_node = TreeNode("LoopStm", "NT")
+
+    return cur_node
+
+def InputStm():
+    cur_node = TreeNode("InputStm", "NT")
+
+    return cur_node
+
+def OutputStm():
+    cur_node = TreeNode("OutputStm", "NT")
+
+    return cur_node
+
+def ReturnStm():
+    cur_node = TreeNode("ReturnStm", "NT")
+
+    return cur_node
+
+def AssCall():
+    cur_node = TreeNode("AssCall", "NT")
+
+    return cur_node
+
+def AssignmentRest():
+    cur_node = TreeNode("AssignmentRest", "NT")
+
+    return cur_node
 
 def match(strings: str):
     global i, Token_List
