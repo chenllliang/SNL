@@ -23,7 +23,7 @@ RecursiveParser.py 使用：
 ```shell
 python RecursiveParser.py temp.tok
 ```
-- 输出中绿色代表叶子结点
+- 控制台输出中绿色代表叶子结点
 
 样例(temp.tok)的语法树
 ```
