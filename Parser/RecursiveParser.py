@@ -1,5 +1,5 @@
 import sys
-import graphviz
+from graphviz import Digraph
 import pickle
 
 
@@ -41,6 +41,32 @@ class TreeNode:
     def outputSymbolList(self):
         pass
 
+    def drawTree(self):
+        graphviz_scripts = ""
+        cur_node_id = 0
+
+        g = Digraph('测试图片')
+        # g.edge('a','b',color='green')
+        # g.view()
+
+        node_queue = []
+        node_queue.append([self,"#"])
+
+        while len(node_queue)!=0:
+            for i in node_queue[0][0].child:
+                if i.type=="T":
+                    g.node(name=i.name+"_"+str(cur_node_id),color='green')
+                else:
+                    g.node(name=i.name+"_"+str(cur_node_id),color='black')
+                g.edge(node_queue[0][0].name+"_"+node_queue[0][1],i.name+"_"+str(cur_node_id))
+                node_queue.append([i,str(cur_node_id)])
+                cur_node_id += 1
+            node_queue = node_queue[1:]
+        
+        g.view(filename="temp.jpg")
+                
+            
+
 
 def RecurParse(path):
     global i, Token_List
@@ -51,6 +77,7 @@ def RecurParse(path):
 
     root.dfs()
 
+    root.drawTree()
     root.serilaize(path+".ptree")
 
 
@@ -621,5 +648,6 @@ if __name__ == "__main__":
     # f = open(sys.argv[1]+".ptree", 'rb')
     # d = pickle.load(f)
     # d.dfs()
+
 
 
