@@ -1,5 +1,7 @@
 import sys
 import graphviz
+import pickle
+
 
 sys.path.append("..")
 
@@ -11,21 +13,33 @@ i = 0
 
 
 class TreeNode:
-    def __init__(self, token, types):
+    def __init__(self, token, types, is_id = False):
         self.name = token
         self.type = types
+        self.is_id = is_id
         self.child = []
 
     def append(self, x):
         self.child.append(x)
 
     def dfs(self, depth=0):
-        if self.type == "T":
+        if self.type == "T" and self.is_id== False:
             print("\033[32m%s\033[0m" % ("--" * depth + self.name))
+         
+        elif self.type == "T" and self.is_id== True:
+            print("\033[31m%s\033[0m" % ("--" * depth + self.name))
+
         else:
             print("--" * depth + self.name)
         for i in self.child:
             i.dfs(depth + 1)
+    
+    def serilaize(self,file_name):
+        f = open(file_name, 'wb')
+        pickle.dump(self, f)
+
+    def outputSymbolList(self):
+        pass
 
 
 def RecurParse(path):
@@ -36,6 +50,8 @@ def RecurParse(path):
     root.append(Program())
 
     root.dfs()
+
+    root.serilaize(path+".ptree")
 
 
 def Program():
@@ -587,8 +603,10 @@ def match(strings: str):
     if Token_List[i].type == strings:
         semantics = Token_List[i].semantic
         i += 1
-        if semantics != "None":
-            return TreeNode(semantics, "T")
+        if semantics != "None" and strings=="ID":
+            return TreeNode(semantics, "T",True)
+        elif semantics != "None":
+            return TreeNode(semantics, "T",False)
         else:
             return TreeNode(strings, "T")
     else:
@@ -599,3 +617,9 @@ if __name__ == "__main__":
 
     import sys
     RecurParse(sys.argv[1])
+
+    # f = open(sys.argv[1]+".ptree", 'rb')
+    # d = pickle.load(f)
+    # d.dfs()
+
+
