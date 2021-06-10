@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21fd2f13-3350-4fa8-9d7a-56d1c03a8e7c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Parser/rules.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Parser/RecursiveParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parser/RecursiveParser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JupyterTrust" id="5704ae3f-7667-4857-94a9-f0de15794a32" />
+  <component name="JupyterTrust" id="7aefa161-fe44-4e13-ae6e-0028d871d9bb" />
   <component name="ProjectId" id="1tIH2wBumjSicTtx3ish8eJUixf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -95,6 +95,7 @@
       <updated>1622449479590</updated>
       <workItem from="1622449483079" duration="1710000" />
       <workItem from="1622859388196" duration="18860000" />
+      <workItem from="1623303995926" duration="642000" />
     </task>
     <servers />
   </component>
@@ -102,29 +103,33 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1595" height="149" key="GridCell.Tab.0.bottom" timestamp="1622894499436">
-      <screen x="0" y="25" width="1680" height="982" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1623304641547">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1623304641547" />
     <state width="1595" height="149" key="GridCell.Tab.0.bottom/0.25.1680.982@0.25.1680.982" timestamp="1622894499436" />
     <state width="1299" height="258" key="GridCell.Tab.0.bottom/0.25.2560.1372@0.25.2560.1372" timestamp="1622870238502" />
-    <state width="1595" height="149" key="GridCell.Tab.0.center" timestamp="1622894499436">
-      <screen x="0" y="25" width="1680" height="982" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1623304641547">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1623304641547" />
     <state width="1595" height="149" key="GridCell.Tab.0.center/0.25.1680.982@0.25.1680.982" timestamp="1622894499436" />
     <state width="1299" height="258" key="GridCell.Tab.0.center/0.25.2560.1372@0.25.2560.1372" timestamp="1622870238501" />
-    <state width="1595" height="149" key="GridCell.Tab.0.left" timestamp="1622894499435">
-      <screen x="0" y="25" width="1680" height="982" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1623304641547">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1623304641547" />
     <state width="1595" height="149" key="GridCell.Tab.0.left/0.25.1680.982@0.25.1680.982" timestamp="1622894499435" />
     <state width="1299" height="258" key="GridCell.Tab.0.left/0.25.2560.1372@0.25.2560.1372" timestamp="1622870238501" />
-    <state width="1595" height="149" key="GridCell.Tab.0.right" timestamp="1622894499436">
-      <screen x="0" y="25" width="1680" height="982" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1623304641547">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1623304641547" />
     <state width="1595" height="149" key="GridCell.Tab.0.right/0.25.1680.982@0.25.1680.982" timestamp="1622894499436" />
     <state width="1299" height="258" key="GridCell.Tab.0.right/0.25.2560.1372@0.25.2560.1372" timestamp="1622870238502" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SNL$RecursiveParser.coverage" NAME="RecursiveParser Coverage Results" MODIFIED="1623304362716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Parser" />
     <SUITE FILE_PATH="coverage/SNL$Tokenizer.coverage" NAME="Tokenizer Coverage Results" MODIFIED="1622450368894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tokenizer" />
-    <SUITE FILE_PATH="coverage/SNL$RecursiveParser.coverage" NAME="RecursiveParser Coverage Results" MODIFIED="1622893972093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Parser" />
   </component>
 </project>
