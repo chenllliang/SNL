@@ -62,13 +62,53 @@ def get_first(TYPE,G):
 
 # 根据文法求Follow集
 
-def get_follow(TYPE,G,FIRST):
-    
-    pass
+def get_follow(start,TYPE,G,FIRST):
+    follow = {}
+    check_list = [key for key in TYPE.keys() if TYPE[key]]
+    # 对所有非终极符进行初始化
+    for key in check_list:
+        if TYPE[key]:
+            follow[key] = []
+    follow[start] = ["#"]
+
+    flag = True
+    # 还是不断更新 一直到收敛为止
+    while flag:
+        flag = False
+        # 对每个非终极符，在每个文法中找
+        for key in check_list:
+            for grammar in G:
+                if key in grammar and grammar[0] != key:
+                    # 如果该非终极符不在推导式左边，则开始求其follow集
+                    idx = grammar.index(key)
+                    need_pre = True
+                    tmp = idx + 1
+                    while tmp < len(grammar):
+                        has_next = False
+                        for f in FIRST[grammar[tmp]]:
+                            # 如果后面的符号可能会推出空的话，那么就再看下一个
+                            if f =="":
+                                has_next = True
+                                tmp += 1
+                            # 如果对应的非终极符不在follow集里面，那么就加进去
+                            elif f not in follow[key]:
+                                flag = True
+                                follow[key].append(f)
+                        # 如果后面不会有空串，那么就停止
+                        if not has_next:
+                            need_pre = False
+                            break
+                    # 如果 key在推理时，可能还是会有空串，那么就加上最前面推理的follow集合
+                    if need_pre:
+                        for f in follow[grammar[0]]:
+                            if not f in follow[key]:
+                                flag = True
+                                follow[key].append(f)                
+    return follow
 
 
 # 1对应非终极符，0对应终极符
-TYPE = {"E":1,"T":1,"E'":1,"+":0,"F":1,"*":0,"T'":1,"i":0,"(":0,")":0,"":0}
+TYPE = {"E":1,"T":1,"E'":1,"+":0,"F":1,"*":0,"T'":1,"i":0,"(":0,")":0,"":0,"#":0}
 # 所有的文法规则
 G = [
     ["E","T","E'"],
@@ -79,7 +119,8 @@ G = [
     ["T'",""],
     ["F","i"],
     ["F","(","E",")"]
-    ]
+]
+start = "E"
 
 # 再换一组测试
 # TYPE = {"S":1,"A":1,"B":1,"a":0,"b":0,"c":0,"":0}
@@ -90,8 +131,12 @@ G = [
 #     ["B","b"],
 #     ["B",""]
 # ]
-            
+# start = "S"
+
 if __name__ == '__main__':
 
     first = get_first(TYPE,G)
-    print(first)
+    print("the first is :",first)
+
+    follow = get_follow(start,TYPE,G,first)
+    print("the follow is :",follow)
