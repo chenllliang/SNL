@@ -72,6 +72,7 @@ def RecurParse(path):
     global i, Token_List
     f = open(path, "r")
     Token_List = [Token.unserilze(i.strip()) for i in f.readlines()]
+
     root = TreeNode("ROOT", "NT")
     root.append(Program())
 
