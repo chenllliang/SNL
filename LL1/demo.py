@@ -106,6 +106,108 @@ def get_follow(start,TYPE,G,FIRST):
                                 follow[key].append(f)                
     return follow
 
+def get_predict(G,FIRST,FOLLOW):
+    predict = []
+    
+    for grammar in G:
+        idx = 1 
+        l = []
+        while(idx < len(grammar)):
+            has_next = False
+            # 遍历所有的first
+            for w in FIRST[grammar[idx]]:
+                if w =="":
+                    has_next = True
+                    idx += 1
+                elif w not in l:
+                    l.append(w)
+            if not has_next:
+                break
+        # 判断后面会不会还是空,即推导式可能推出空,则加入Follow(A)
+        if idx == len(grammar) and has_next == True:
+            for w in FOLLOW[grammar[0]]:
+                if w not in l:
+                    l.append(w)
+        predict.append(l)
+        l = []
+    
+    return predict
+
+
+def get_predict_table(G,TYPE,PREDICT):
+    # 得到终极符和非终极符集合
+    terminal = [t for t in TYPE.keys() if not TYPE[t]]
+    non_terminal = [t for t in TYPE.keys() if TYPE[t]]
+    table = {}
+    # 用非终极符来构建表
+    for t in non_terminal:
+        table[t] = {}
+        for idx,grammar in enumerate(G):
+            # 如果这个文法是关于这个非终极符的解析，则加入
+            if t == grammar[0]:
+                for pre in PREDICT[idx]:
+                    table[t][pre] = idx
+    
+    return terminal,non_terminal,table
+
+
+
+# 设计类进行分析
+class Parser:
+    def __init__(self,G,TYPE,PREDICT_TABLE,start,seq):
+        self.G = G
+        self.TYPE = TYPE
+        self.predict_table = PREDICT_TABLE
+        self.stack = ["#"]
+        self.stack.append(start)
+        self.seq = seq
+    
+    def parse(self):
+        while self.stack and self.seq.queue:
+            self.parse_once()
+            print("the stack is :",self.stack)
+            print("the sequence is :",self.seq.queue)
+        # 如果都是空了，则表示匹配正确
+        if not self.stack and not self.seq.queue:
+            print("Succeed!")
+        else:
+            assert("error!")
+
+    def parse_once(self):
+        temp = self.stack[-1]
+        word = self.seq.queue[0]
+
+        # 开始解析
+
+        # print("the temp is :",temp)
+        # print("the word is :",word)
+
+        # 如果从符号栈中得到的是终极符的，那么直接进行匹配
+        if not self.TYPE[temp]:
+            # 匹配成功则直接去掉
+            if temp == word:
+                self.stack.pop()
+                self.seq.get()
+            # 匹配失败则报错
+            else:
+                assert("error!")
+        # 如果是非终极符，则通过Predict_table，找应该用哪个文法进行替换
+        else:
+            
+            # 如果在表中有对应的信息，则直接替换
+            if word in self.predict_table[temp]:
+                grammar = G[self.predict_table[temp][word]][1:]
+                self.stack.pop()
+                grammar.reverse()
+                for k in grammar:
+                    if k != "":
+                        self.stack.append(k);
+            # 否则报错
+            else:
+                assert("error!")
+        
+
+
 
 # 1对应非终极符，0对应终极符
 TYPE = {"E":1,"T":1,"E'":1,"+":0,"F":1,"*":0,"T'":1,"i":0,"(":0,")":0,"":0,"#":0}
@@ -134,9 +236,25 @@ start = "E"
 # start = "S"
 
 if __name__ == '__main__':
+    from queue import Queue
 
     first = get_first(TYPE,G)
     print("the first is :",first)
 
     follow = get_follow(start,TYPE,G,first)
     print("the follow is :",follow)
+
+    predict = get_predict(G,first,follow)
+    print("the predict is :",predict)
+
+    terminal,non_terminal,predict_table = get_predict_table(G,TYPE,predict)
+    print("the predict_table is :",predict_table)
+
+    s = "i+i*i#"
+    a = Queue()
+    for l in s:
+        a.put(l)
+
+    parser = Parser(G,TYPE,predict_table,start,a)
+    parser.parse()
+

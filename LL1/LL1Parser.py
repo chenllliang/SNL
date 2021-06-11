@@ -21,8 +21,6 @@ Follow = {}
 
 Predict = {}
 
-def get_first():
-
 
 # class TreeNode():
 

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21fd2f13-3350-4fa8-9d7a-56d1c03a8e7c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Parser/RecursiveParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/Parser/RecursiveParser.py" afterDir="false" />
-    </list>
+    <list default="true" id="21fd2f13-3350-4fa8-9d7a-56d1c03a8e7c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,6 +93,7 @@
       <workItem from="1622449483079" duration="1710000" />
       <workItem from="1622859388196" duration="18860000" />
       <workItem from="1623303995926" duration="642000" />
+      <workItem from="1623391110969" duration="46000" />
     </task>
     <servers />
   </component>
