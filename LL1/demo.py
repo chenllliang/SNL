@@ -150,6 +150,65 @@ def get_predict_table(G,TYPE,PREDICT):
     
     return terminal,non_terminal,table
 
+class Node:
+    def __init__(self,type,value) :
+        self.type = type
+        self.value = value
+        self.children = []
+
+
+
+class Parser_Tree:
+    def __init__(self,G,TYPE,PREDICT_TABLE,start,seq):
+        self.G = G
+        self.TYPE = TYPE
+        self.predict_table = PREDICT_TABLE
+        self.stack = []
+        self.stack.append(Node("#","#"))
+        self.stack.append(start)
+        self.seq = seq
+
+    def parse_once(self):
+        temp = self.stack[-1]
+        word = self.seq.queue[0]
+
+        # 开始解析
+
+        # 如果类型是终极符，那么进行匹配
+        if not self.TYPE[temp.type]:
+            if temp.value == word.value:
+                self.stack.pop()
+                self.seq.get()
+            else:
+                assert("error!")
+        # 如果是非终极符，那么通过Predict_table来找应该用什么文法进行替换
+        else:
+            # 如果在表中有对应的信息，则直接替换
+            if word.type in self.predict_table[temp.type]:
+                grammar = G[self.predict_table[temp.type][word.type]][1:]
+                self.stack.pop()
+                grammar.reverse()
+                for k in grammar:
+                    if k != "":
+                        node = Node(k,k)
+                        self.stack.append(node)
+                        temp.children.append(node)
+            # 如果表中没有信息，则报错
+            else:
+                assert("error!")
+    
+    def parse(self):
+        
+        while self.stack and self.seq.queue:
+            print("the stack is :",self.stack[-1].type)
+            l = [k.value for k in self.seq.queue]
+            print("the sequence is :",l)
+            self.parse_once()
+        if not self.stack and not self.seq.queue:
+            print("Succeed!")
+        else:
+            assert("error!")
+            
 
 
 # 设计类进行分析
@@ -164,9 +223,9 @@ class Parser:
     
     def parse(self):
         while self.stack and self.seq.queue:
-            self.parse_once()
             print("the stack is :",self.stack)
             print("the sequence is :",self.seq.queue)
+            self.parse_once()
         # 如果都是空了，则表示匹配正确
         if not self.stack and not self.seq.queue:
             print("Succeed!")
@@ -193,7 +252,6 @@ class Parser:
                 assert("error!")
         # 如果是非终极符，则通过Predict_table，找应该用哪个文法进行替换
         else:
-            
             # 如果在表中有对应的信息，则直接替换
             if word in self.predict_table[temp]:
                 grammar = G[self.predict_table[temp][word]][1:]
@@ -254,7 +312,14 @@ if __name__ == '__main__':
     a = Queue()
     for l in s:
         a.put(l)
+    seq = Queue()
+    for l in a.queue:
+        seq.put(Node(l,l))
 
     parser = Parser(G,TYPE,predict_table,start,a)
     parser.parse()
 
+
+
+    parse_tree = Parser_Tree(G,TYPE,predict_table,Node(start,None),seq)
+    parse_tree.parse()

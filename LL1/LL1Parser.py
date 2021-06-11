@@ -6,8 +6,14 @@ stack = list()
 
 TYPE = {}
 
-grammar = [None,
-            ["Program","ProgramHead","DeclarePart","ProgramBody","."],];
+grammar = [
+            ["Program","ProgramHead","DeclarePart","ProgramBody","END_PROGRAM"],
+            ["ProgramHead","PROGRAM","ProgramName"],
+            ["ProgramName","ID"],
+            ["DeclarePart","TypeDecpart","VarDecpart","ProcDecpart"]
+            
+
+        ]
 
 # 计算对应文法中所有的First集
 
