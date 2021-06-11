@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21fd2f13-3350-4fa8-9d7a-56d1c03a8e7c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Parser/rules.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="21fd2f13-3350-4fa8-9d7a-56d1c03a8e7c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,6 +92,7 @@
       <updated>1622449479590</updated>
       <workItem from="1622449483079" duration="1710000" />
       <workItem from="1622859388196" duration="18860000" />
+      <workItem from="1623288002410" duration="2582000" />
     </task>
     <servers />
   </component>
@@ -124,7 +122,7 @@
     <state width="1299" height="258" key="GridCell.Tab.0.right/0.25.2560.1372@0.25.2560.1372" timestamp="1622870238502" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/SNL$Tokenizer.coverage" NAME="Tokenizer Coverage Results" MODIFIED="1622450368894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tokenizer" />
     <SUITE FILE_PATH="coverage/SNL$RecursiveParser.coverage" NAME="RecursiveParser Coverage Results" MODIFIED="1622893972093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Parser" />
+    <SUITE FILE_PATH="coverage/SNL$Tokenizer.coverage" NAME="Tokenizer Coverage Results" MODIFIED="1622450368894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tokenizer" />
   </component>
 </project>

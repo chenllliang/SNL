@@ -1,5 +1,8 @@
 # SNL编译原理实验
 
+windows 用户请使用 powershell ， 否则可能部分功能无法正常使用
+
+
 ## 词法分析器 Tokenizer.py
 *CL*
 

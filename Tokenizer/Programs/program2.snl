@@ -9,17 +9,32 @@ integer v1,v2;
 char v3,v4;
 
 procedure q(integer i);
-var integer a;
-begin
-a:=i;
-write(a)
-end
+    var integer a;
+
+        procedure s(integer i);
+        var integer a;
+        begin
+            a:=i;
+            write(a)
+        end
+
+    begin
+        a:=i;
+        write(a)
+    end
+
+procedure m(integer i);
+    var integer a;
+    begin
+        a:=i;
+        write(a)
+    end
 
 begin
-read(v1);
-if v1<10
-then v1:=v1+10
-else v1:=v1-10
-fi;
-q(v1)
+    read(v1);
+    if v1<10
+    then v1:=v1+10
+    else v1:=v1-10
+    fi;
+    q(v1)
 end .
