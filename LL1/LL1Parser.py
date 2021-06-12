@@ -168,7 +168,7 @@ class Node:
         self.children = []
 
     def dfs(self, depth=0):
-        if self.type:
+        if self.type != self.value:
             print("\033[32m%s\033[0m" % ("--" * depth + self.type))
         else:
             print("--" * depth + self.type)
@@ -195,6 +195,7 @@ class Parser_Tree:
         # 如果类型是终极符，那么进行匹配
         if not self.TYPE[temp.type]:
             if temp.type == word.type:
+                temp.value = word.value
                 self.stack.pop()
                 self.seq.get()
             else:

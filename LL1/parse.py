@@ -170,12 +170,11 @@ def parse(path):
     for token in Token_List:
         q.put(Node(token.type,token.semantic))
     q.put(Node("#","#"))
-    start = Node("Program",None)
+    start = Node("Program","Program")
     parser = Parser_Tree(G,TYPE,predict_table,start,q)
     parser.parse()
 
-    # for token in Token_List:
-    #     print(token.type,"  ",token.semantic)
+    start.dfs()
     pass
 
 if __name__ == '__main__':
