@@ -175,6 +175,8 @@ def parse(path):
     parser.parse()
 
     start.dfs()
+
+    start.drawTree()
     pass
 
 if __name__ == '__main__':

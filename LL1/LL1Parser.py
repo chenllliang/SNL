@@ -9,7 +9,8 @@
 # ② 对于任意的p，满足 1 <= p <= k ，且FIRST(Yp)都含有ε，则把
 # ε加入到FIRST(X)中.
 
-
+from queue import Queue
+from graphviz import Digraph
 # 根据文法求First集
 def get_first(TYPE,G):
     first = {}
@@ -174,6 +175,40 @@ class Node:
             print("--" * depth + self.type)
         for i in self.children:
             i.dfs(depth + 1)
+    
+    def get_name(self,id):
+        # 如果是终极符，则判断一下是不是ID之类的
+        if self.type != self.value:
+            if self.value != "None":
+                return self.type + "_" + self.value + "_"+ str(id)
+            else:
+                return self.type + "_" + str(id)
+        else:
+            return self.type +"_" + str(id)
+
+    def drawTree(self):
+        graphviz_scripts = ""
+        cur_node_id = 0
+        g = Digraph("测试LL1")
+
+        node_queue = Queue()
+        node_queue.put([self,cur_node_id])
+
+        while not node_queue.empty():
+            tmp = node_queue.get()
+            tmp_node = tmp[0]
+            tmp_id = tmp[1]
+            for i in tmp_node.children:
+                cur_node_id += 1
+                # 如果是终极符
+                if i.type != i.value:
+                    g.node(name =i.get_name(cur_node_id),color = 'green')
+                else:
+                    g.node(name = i.get_name(cur_node_id),color = 'black')
+                g.edge(tmp_node.get_name(tmp_id),i.get_name(cur_node_id))
+                node_queue.put([i,cur_node_id])
+        g.view("test.jpg")
+        
 
 
 class Parser_Tree:
