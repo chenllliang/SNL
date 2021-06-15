@@ -9,9 +9,9 @@ integer v1,v2;
 char v3,v4;
 
 procedure q(integer i);
-    var integer a;
+    var integer a;{remove SEMICOLON }
 
-        procedure s(integer o);
+        procedure s(integer o); {change o 2 i}
         var integer b;
         begin
             a:=i;
@@ -23,7 +23,7 @@ procedure q(integer i);
         write(a)
     end
 
-procedure m(integer i);
+procedure m(integer i);  {change m 2 q}
     var integer a;
     begin
         a:=i;
@@ -33,7 +33,7 @@ procedure m(integer i);
 begin
     read(v1);
     if v1<10
-    then v1:=v1+10
+    then v1:=v1+10  {change v1 2 v100}
     else v1:=v1-10
     fi;
     q(v1)
