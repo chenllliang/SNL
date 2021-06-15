@@ -63,7 +63,7 @@ class TreeNode:
                 cur_node_id += 1
             node_queue = node_queue[1:]
         
-        g.view(filename="temp.jpg")
+        g.view(filename="temp")
                 
             
 
@@ -645,10 +645,5 @@ if __name__ == "__main__":
 
     import sys
     RecurParse(sys.argv[1])
-
-    # f = open(sys.argv[1]+".ptree", 'rb')
-    # d = pickle.load(f)
-    # d.dfs()
-
 
 
