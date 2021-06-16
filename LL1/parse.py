@@ -1,6 +1,6 @@
 from queue import Queue
-import LL1Parser
-from LL1Parser import Node,Parser_Tree
+from LL1.LL1Parser import * 
+# from LL1Parser import Node,Parser_Tree
 import json
 import sys
 sys.path.append("..")
@@ -50,7 +50,7 @@ G = [
             ["ProcDecpart","ProcDec"],
             ["ProcDec","PROCEDURE","ProcName","LP","ParamList","RP","SEMICOLON","ProcDecPart","ProcBody","ProcDecMore"],
             ["ProcDecMore",""],
-            ["ProcDecMore","ProcDeclaration"],
+            ["ProcDecMore","ProcDec"],
             ["ProcName","ID"],
             ["ParamList",""],
             ["ParamList","ParamDecList"],
@@ -134,13 +134,13 @@ for word in s:
         TYPE[word] = NON_TERMINAL
 
 start = "Program"
-first = LL1Parser.get_first(TYPE,G)
-follow = LL1Parser.get_follow("",TYPE,G,first)
-predict = LL1Parser.get_predict(G,first,follow)
+first = get_first(TYPE,G)
+follow = get_follow("",TYPE,G,first)
+predict = get_predict(G,first,follow)
 
 
 
-terminal,non_terminal,predict_table = LL1Parser.get_predict_table(G,TYPE,predict)
+terminal,non_terminal,predict_table = get_predict_table(G,TYPE,predict)
 
 
 # 打印对应的predict集，是相同的
@@ -151,13 +151,13 @@ for key in predict_table.keys():
 print("finish")
 
 
-# print("the first is :",first["DeclarePart"])
-# print("the follow is :",predict_table["ProcDecPart"])
+# # print("the first is :",first["DeclarePart"])
+# # print("the follow is :",predict_table["ProcDecPart"])
 
-print("the predict is :",predict_table["StmList"])
-# print(len(predict_table["OtherFactor"]))
-print("the follow is :",follow["StmList"])
-print("first :",first["FI"])
+# print("the predict is :",predict_table["ProcDecMore"])
+# # print(len(predict_table["OtherFactor"]))
+# print("the follow is :",follow["ProcDec"])
+# print("first :",first["ProcDec"])
 
 def parse(path):
     # 打开已经进行完语法分析的文件
@@ -175,6 +175,8 @@ def parse(path):
     parser.parse()
 
     start.dfs()
+
+    start.drawTree()
     pass
 
 if __name__ == '__main__':

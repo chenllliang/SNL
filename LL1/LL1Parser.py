@@ -9,6 +9,8 @@
 # ② 对于任意的p，满足 1 <= p <= k ，且FIRST(Yp)都含有ε，则把
 # ε加入到FIRST(X)中.
 
+from queue import Queue
+from graphviz import Digraph
 
 # 根据文法求First集
 def get_first(TYPE,G):
@@ -65,7 +67,6 @@ def get_first(TYPE,G):
     return first
 
 # 根据文法求Follow集
-
 def get_follow(start,TYPE,G,FIRST):
     follow = {}
     check_list = [key for key in TYPE.keys() if TYPE[key]]
@@ -174,6 +175,40 @@ class Node:
             print("--" * depth + self.type)
         for i in self.children:
             i.dfs(depth + 1)
+    
+    def get_name(self,id):
+        # 如果是终极符，则判断一下是不是ID之类的
+        if self.type != self.value:
+            if self.value != "None":
+                return self.type + "_" + self.value + "_"+ str(id)
+            else:
+                return self.type + "_" + str(id)
+        else:
+            return self.type +"_" + str(id)
+
+    def drawTree(self):
+        graphviz_scripts = ""
+        cur_node_id = 0
+        g = Digraph("测试LL1")
+
+        node_queue = Queue()
+        node_queue.put([self,cur_node_id])
+
+        while not node_queue.empty():
+            tmp = node_queue.get()
+            tmp_node = tmp[0]
+            tmp_id = tmp[1]
+            for i in tmp_node.children:
+                cur_node_id += 1
+                # 如果是终极符
+                if i.type != i.value:
+                    g.node(name =i.get_name(cur_node_id),color = 'green')
+                else:
+                    g.node(name = i.get_name(cur_node_id),color = 'black')
+                g.edge(tmp_node.get_name(tmp_id),i.get_name(cur_node_id))
+                node_queue.put([i,cur_node_id])
+        g.view("test.jpg")
+        
 
 
 class Parser_Tree:
@@ -199,7 +234,8 @@ class Parser_Tree:
                 self.stack.pop()
                 self.seq.get()
             else:
-                assert("error!")
+                # 如果类型是终极符但是不匹配的话
+                raise TypeError("ERROR at token :" + word.type +"  the coming terminal is :"+ temp.type)
         # 如果是非终极符，那么通过Predict_table来找应该用什么文法进行替换
         else:
             # 如果在表中有对应的信息，则直接替换
@@ -212,12 +248,11 @@ class Parser_Tree:
                         node = Node(k,k)
                         self.stack.append(node)
                         temp.children.append(node)
-            # 如果表中没有信息，则报错
+            # 如果表中，输入的终极符不在对应的predict集中，则报错
             else:
-                assert("error!")
+                raise TypeError("ERROR at token :" + word.type +"  the coming non-terminal is :"+ temp.type +" Expected:",self.predict_table[temp.type])
     
     def parse(self):
-
 
         while self.stack and self.seq.queue:
             stack = []
@@ -231,7 +266,8 @@ class Parser_Tree:
         if not self.stack and not self.seq.queue:
             print("Succeed!")
         else:
-            assert("error!")
+            # 不在表中则不匹配
+            raise KeyError("can't match")
             
 
 

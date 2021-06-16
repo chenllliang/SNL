@@ -4,6 +4,8 @@ from Parser.RecursiveParser import RecurParse
 
 from SynaticAnalyse.SA import SA
 
+from LL1.parse import parse
+
 import pickle
 
 if __name__=="__main__":
@@ -18,3 +20,6 @@ if __name__=="__main__":
     d = pickle.load(f)
     a = SA(d)
     a.createBidiTree()
+
+    # LL1语法分析
+    parse(sys.argv[1]+".tok")
