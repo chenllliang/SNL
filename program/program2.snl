@@ -23,7 +23,7 @@ procedure q(integer i);
         write(a)
     end
 
-procedure m(integer i);  {change m 2 q}
+procedure q(integer i);  {change m 2 q}
     var integer a;
     begin
         a:=i;

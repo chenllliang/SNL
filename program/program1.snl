@@ -1,0 +1,15 @@
+program pp
+{12121223
+var   integer  v1;
+char  c;
+
+procedure f();
+begin
+    v1 :=2
+    c = 'opo'
+end
+
+begin
+  f();
+  write(v1)
+end .
