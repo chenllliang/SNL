@@ -50,7 +50,7 @@ G = [
             ["ProcDecpart","ProcDec"],
             ["ProcDec","PROCEDURE","ProcName","LP","ParamList","RP","SEMICOLON","ProcDecPart","ProcBody","ProcDecMore"],
             ["ProcDecMore",""],
-            ["ProcDecMore","ProcDeclaration"],
+            ["ProcDecMore","ProcDec"],
             ["ProcName","ID"],
             ["ParamList",""],
             ["ParamList","ParamDecList"],
@@ -154,10 +154,10 @@ print("finish")
 # print("the first is :",first["DeclarePart"])
 # print("the follow is :",predict_table["ProcDecPart"])
 
-print("the predict is :",predict_table["StmList"])
+print("the predict is :",predict_table["ProcDecMore"])
 # print(len(predict_table["OtherFactor"]))
-print("the follow is :",follow["StmList"])
-print("first :",first["FI"])
+print("the follow is :",follow["ProcDec"])
+print("first :",first["ProcDec"])
 
 def parse(path):
     # 打开已经进行完语法分析的文件

@@ -235,7 +235,7 @@ class Parser_Tree:
                 self.seq.get()
             else:
                 # 如果类型是终极符但是不匹配的话
-                raise TypeError("ERROR at token :" + word.type + " Expected:" + self.predict_table[temp.type])
+                raise TypeError("ERROR at token :" + word.type +"  the coming terminal is :"+ temp.type)
         # 如果是非终极符，那么通过Predict_table来找应该用什么文法进行替换
         else:
             # 如果在表中有对应的信息，则直接替换
@@ -250,7 +250,7 @@ class Parser_Tree:
                         temp.children.append(node)
             # 如果表中，输入的终极符不在对应的predict集中，则报错
             else:
-                raise TypeError("ERROR at token :" + word.type + " Expected:",self.predict_table[temp.type])
+                raise TypeError("ERROR at token :" + word.type +"  the coming non-terminal is :"+ temp.type +" Expected:",self.predict_table[temp.type])
     
     def parse(self):
 
