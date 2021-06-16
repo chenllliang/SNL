@@ -11,6 +11,7 @@
 
 from queue import Queue
 from graphviz import Digraph
+
 # 根据文法求First集
 def get_first(TYPE,G):
     first = {}
@@ -66,7 +67,6 @@ def get_first(TYPE,G):
     return first
 
 # 根据文法求Follow集
-
 def get_follow(start,TYPE,G,FIRST):
     follow = {}
     check_list = [key for key in TYPE.keys() if TYPE[key]]
@@ -253,7 +253,6 @@ class Parser_Tree:
                 raise TypeError("ERROR at token :" + word.type +"  the coming non-terminal is :"+ temp.type +" Expected:",self.predict_table[temp.type])
     
     def parse(self):
-
 
         while self.stack and self.seq.queue:
             stack = []
